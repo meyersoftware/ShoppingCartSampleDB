@@ -44,6 +44,7 @@ CREATE TABLE dbo.Orders
 	[OrderID] int NOT NULL IDENTITY (1, 1),
 	[CustomerID] int NOT NULL,
 	[ProductID] int NOT NULL,
+	[Count] int,
 
  CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
 (
@@ -165,6 +166,20 @@ BEGIN
 	State = @State,
 	Zip = @Zip
 	Where UserID = @UserID
+END
+
+GO
+
+CREATE PROCEDURE AddOrder
+@CustomerID int,
+@ProductID int,
+@Count int
+AS
+BEGIN
+	insert into Orders
+	select @CustomerID,
+	@ProductID,
+	@Count
 END
 
 GO
